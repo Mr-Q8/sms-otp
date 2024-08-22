@@ -5,42 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script>
-        function hideMessage() {
-            const messageElement = document.getElementById('success-message');
-            if (messageElement) {
-                setTimeout(function() {
-                    messageElement.style.display = 'none';
-                }, 5000);  // Desaparece después de 5 segundos
-            }
-        }
-    </script>
 </head>
-<body onload="hideMessage()">
+<body>
     <div class="container">
-        <h2>Dashboard</h2>
-        <form method="POST">
-            <label for="tiktok_username">Nombre de Usuario de TikTok:</label>
-            <input type="text" id="tiktok_username" name="tiktok_username" required>
-            
-            <label for="followers_option">Selecciona la cantidad de seguidores:</label>
-            <select id="followers_option" name="followers_option" required>
-                <option value="1000">1000 Seguidores</option>
-                <option value="5000">5000 Seguidores</option>
-                <option value="10000">10000 Seguidores</option>
-                <option value="100000">100000 Seguidores</option>
-            </select>
-            
-            <button type="submit">Enviar Seguidores</button>
-        </form>
-
-        {% if success %}
-            <p id="success-message" class="success">
-                ¡Seguidores enviados exitosamente a {{ tiktok_username }} con {{ followers_option }} seguidores!
-            </p>
-        {% elif error %}
+        <h2 class="neon-text">Dashboard</h2>
+        {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
+        {% if success %}
+            <p class="success">Se han enviado {{ followers_option }} seguidores a {{ tiktok_username }}.</p>
+        {% endif %}
+        <form action="{{ url_for('dashboard') }}" method="post" class="dashboard-form">
+            <label for="tiktok_username">TikTok Username:</label>
+            <input type="text" name="tiktok_username" id="tiktok_username" required><br>
+            <label for="followers_option">Cantidad de Seguidores:</label>
+            <input type="number" name="followers_option" id="followers_option" required><br>
+            <input type="submit" value="Enviar Seguidores" class="neon-button">
+        </form>
+        <br>
+        <a href="{{ url_for('logout') }}" class="neon-button">Logout</a>
     </div>
 </body>
 </html>
+
