@@ -2,9 +2,10 @@ from flask import Flask, request, render_template, redirect, url_for, session
 from functools import wraps
 from datetime import datetime
 import threading
+import os
 
 app = Flask(__name__)
-app.secret_key = 'my_secret_key'
+app.secret_key = '7040746d0b3d38ba7f704e9d2e5aac42'  # Usa tu clave secreta aquí
 
 # Simulación de usuarios en lugar de base de datos
 users = {
@@ -84,4 +85,5 @@ def send_followers(tiktok_username, count):
     print(f"Se han enviado {count} seguidores a {tiktok_username}")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
