@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function hideMessage() {
+            const messageElement = document.getElementById('success-message');
+            if (messageElement) {
+                setTimeout(function() {
+                    messageElement.style.display = 'none';
+                }, 5000);  // Desaparece después de 5 segundos
+            }
+        }
+    </script>
+</head>
+<body onload="hideMessage()">
+    <div class="container">
+        <h2>Dashboard</h2>
+        <form method="POST">
+            <label for="tiktok_username">Nombre de Usuario de TikTok:</label>
+            <input type="text" id="tiktok_username" name="tiktok_username" required>
+            
+            <label for="followers_option">Selecciona la cantidad de seguidores:</label>
+            <select id="followers_option" name="followers_option" required>
+                <option value="1000">1000 Seguidores</option>
+                <option value="5000">5000 Seguidores</option>
+                <option value="10000">10000 Seguidores</option>
+                <option value="100000">100000 Seguidores</option>
+            </select>
+            
+            <button type="submit">Enviar Seguidores</button>
+        </form>
+
+        {% if success %}
+            <p id="success-message" class="success">
+                ¡Seguidores enviados exitosamente a {{ tiktok_username }} con {{ followers_option }} seguidores!
+            </p>
+        {% elif error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
